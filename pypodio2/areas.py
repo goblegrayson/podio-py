@@ -41,7 +41,6 @@ class Item(Area):
         attributes = json.dumps(attributes)
         return self.transport.POST(url="/item/app/%d/filter/" % app_id, body=attributes, type="application/json")
 
-    # I made this
     def filter_by_view(self, app_id, view_id, attributes):
         if type(attributes) != dict:
             return ApiErrorException('Must be of type dict')
@@ -106,12 +105,14 @@ class Application(Area):
         attributes = json.dumps(attributes)
         return self.transport.POST(url='/app/', body=attributes, type='application/json')
 
-    # I made this
     def update(self, attributes):
         if type(attributes) != dict:
             return ApiErrorException('Must be of type dict')
         attributes = json.dumps(attributes)
         return self.transport.PUT(url='/app/%s/v2' % app_id, body=attributes, type='application/json')
+
+    def get_field(self, app_id, field_id):
+        return self.transport.GET(url=f'/app/{app_id}/field/{field_id}')
 
     def deactivate(self, app_id):
         '''
