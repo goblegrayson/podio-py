@@ -82,6 +82,11 @@ class Item(Area):
     def delete(self, item_id):
         return self.transport.DELETE(url='/item/%d' % item_id, handler=lambda x, y: None)
 
+    def add_tag(self, item_id, tag):
+        attributes = [tag]
+        attributes = json.dumps(attributes)
+        return self.transport.POST(url='/tag/item/%d/' % item_id, body=attributes, type='application/json')
+
 
 class Application(Area):
 
