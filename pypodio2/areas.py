@@ -47,6 +47,12 @@ class Item(Area):
         attributes = json.dumps(attributes)
         return self.transport.POST(url="/item/app/{}/filter/{}".format(app_id, view_id), body=attributes, type="application/json")
 
+    def search(self, app_id, attributes):
+        if type(attributes) != dict:
+            return ApiErrorException('Must be of type dict')
+        attributes = json.dumps(attributes)
+        return self.transport.POST(url="/search/app/%d" % app_id, body=attributes, type="application/json")
+
     def next(self, item_id, **kwargs):
         return self.transport.GET(url='/item/%d/next' % item_id)
 
